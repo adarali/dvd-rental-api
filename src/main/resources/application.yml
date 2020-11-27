@@ -34,13 +34,13 @@ spring:
             client:
                 registration:
                     github:
-                        client-id: 37ffe986aaa22681ffae
-                        client-secret: 56901a505c37edda326a869490f8820df0319402
+                        client-id: ${GITHUB_CLIENT_ID}
+                        client-secret: ${GITHUB_CLIENT_SECRET}
                         redirect-uri: http://www.mylinuxpc.com:8080/login/oauth2/code/github
                     google:
-                        client-id: 398228760183-u7stdtrkl4stkbdavba6j48gaq0sraju.apps.googleusercontent.com
-                        client-secret: sfQ466WpZ5EVwEC0RgWlnpPI
-                        redirect-uri: https://www.mylinuxpc.com/login/oauth2/code/google
+                        client-id: ${GOOGLE_CLIENT_ID}
+                        client-secret: ${GOOGLE_CLIENT_SECRET}
+                        redirect-uri: http://localhost:8080/login/oauth2/code/google
     cache:
         cache-names:
             - rate-limit-buckets
@@ -50,7 +50,7 @@ spring:
 
 jwt:
     timeout: 60
-    secret: fdoqeh2893yud/ofh2893ud89239283&//(39270
+    secret: ${JWT_SECRET_KEY}
     keystore-location: keys/keystore.jks
     keystore-password: 123456
     key-alias: jwtsigning
