@@ -1,0 +1,101 @@
+server:
+    error:
+        include-stacktrace: never
+
+app:
+    initdata: true
+    baseUrl: http://localhost
+
+
+spring:
+    profiles:
+        active: dev
+
+    h2:
+        console:
+            enabled: true
+    datasource:
+        url: jdbc:h2:mem:testdb
+    mail:
+        host: smtp.gmail.com
+        password: UJjgRg8inin2WXS
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+        username: springboottestemail001@gmail.com
+    swagger-ui:
+        path: /api-docs
+    security:
+        oauth2:
+            client:
+                registration:
+                    github:
+                        client-id: 37ffe986aaa22681ffae
+                        client-secret: 56901a505c37edda326a869490f8820df0319402
+                        redirect-uri: http://www.mylinuxpc.com:8080/login/oauth2/code/github
+                    #                        issuer-uri: https://github.com/login/oauth/access_token
+                    google:
+                        client-id: 398228760183-u7stdtrkl4stkbdavba6j48gaq0sraju.apps.googleusercontent.com
+                        client-secret: sfQ466WpZ5EVwEC0RgWlnpPI
+                        redirect-uri: https://www.mylinuxpc.com/login/oauth2/code/google
+                        issuer-uri: https://accounts.google.com
+    cache:
+        cache-names:
+            - rate-limit-buckets
+        caffeine:
+            spec: maximumSize=100000,expireAfterAccess=3600s
+
+
+jwt:
+    timeout: 60
+    secret: fdoqeh2893yud/ofh2893ud89239283&//(39270
+    keystore-location: keys/keystore.jks
+    keystore-password: 123456
+    key-alias: jwtsigning
+    private-key-passphrase: ${jwt.keystore-password}
+
+
+
+logging:
+    level:
+        org:
+            springframework:
+                web:
+                    client:
+                        RestTemplate: DEBUG
+
+
+
+
+
+bucket4j:
+    enabled: true
+    filters:
+        - cache-name: rate-limit-buckets
+          url: /api/.*/movies.*
+          strategy: first
+          http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+          rate-limits:
+              - expression: "getHeader('Authorization')"
+                execute-condition: "getHeader('Authorization') != null && getHeader('Authorization').startsWith('Bearer ')"
+                bandwidths:
+                    - capacity: 10
+                      time: 1
+                      unit: minutes
+              - expression: "getHeader('Authorization')"
+                execute-condition: "getHeader('Authorization') == null"
+                bandwidths:
+                    - capacity: 40
+                      time: 1
+                      unit: hours
+              - expression: "getHeader('Authorization')"
+                bandwidths:
+                    - capacity: 20
+                      time: 1
+                      unit: hours
+
+
