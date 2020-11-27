@@ -37,12 +37,10 @@ spring:
                         client-id: 37ffe986aaa22681ffae
                         client-secret: 56901a505c37edda326a869490f8820df0319402
                         redirect-uri: http://www.mylinuxpc.com:8080/login/oauth2/code/github
-                    #                        issuer-uri: https://github.com/login/oauth/access_token
                     google:
                         client-id: 398228760183-u7stdtrkl4stkbdavba6j48gaq0sraju.apps.googleusercontent.com
                         client-secret: sfQ466WpZ5EVwEC0RgWlnpPI
                         redirect-uri: https://www.mylinuxpc.com/login/oauth2/code/google
-                        issuer-uri: https://accounts.google.com
     cache:
         cache-names:
             - rate-limit-buckets

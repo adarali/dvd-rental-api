@@ -86,7 +86,7 @@ public class AppUtils {
         return null;
     }
     
-    public static <T> Map<String, Object> objectToMap(T object, List<String> fields, ObjectMapper mapper) {
+    public static <T> Map<String, Object> limitFields(T object, List<String> fields, ObjectMapper mapper) {
         Map<String, Object> map = mapper.convertValue(object, Map.class);
         map.entrySet().removeIf(entry -> !fields.contains(entry.getKey()));
         return map;

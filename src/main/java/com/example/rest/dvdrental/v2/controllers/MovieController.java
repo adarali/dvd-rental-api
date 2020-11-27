@@ -50,6 +50,8 @@ public class MovieController {
         this.purchaseService = purchaseService;
     }
     
+    @Operation(summary = "Get list of movies", description = "Gets a list of movies based on the parameters passed by the user")
+    @ResponseStatus
     @GetMapping
     public ResponseEntity<?> getMovies(
             @Validated @Parameter(name = "Query parameters", content = @Content(schema = @Schema(implementation = MovieQuery.class))) MovieQuery query,
@@ -60,9 +62,9 @@ public class MovieController {
         if (principal instanceof JwtAuthenticationToken) {
             JwtAuthenticationToken authenticationToken = ((JwtAuthenticationToken) principal);
             admin = authenticationToken.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-            log.info(String.format("Principal name: %s", principal.getName()));
-            log.info("is admin: " + admin);
         }
+        
+        //Always show available movies only if the user is not an admin.
         if (!admin) {
             query.setAvailable(1);
         }

@@ -3,6 +3,8 @@ package com.example.rest.dvdrental.v2.service;
 import com.example.rest.dvdrental.v2.entities.AppUser;
 import com.example.rest.dvdrental.v2.entities.PasswordRecoveryToken;
 import com.example.rest.dvdrental.v2.exceptions.AppException;
+import com.example.rest.dvdrental.v2.exceptions.AppValidationException;
+import com.example.rest.dvdrental.v2.exceptions.ResourceExistsException;
 import com.example.rest.dvdrental.v2.exceptions.user.AppUserNotFoundException;
 import com.example.rest.dvdrental.v2.model.UserRequest;
 import com.example.rest.dvdrental.v2.repository.AppUserRepository;
@@ -123,22 +125,20 @@ public class AppUserService extends AbstractService<AppUser, Long> {
         return createOrUpdate(user);
     }
     
-    public AppUser saveUser(Map<String, Object> map) {
-        if(map.get("username") == null) throw new AppException("The username is required");
+    public AppUser saveUser(Map<String, Object> map, boolean creating) {
+        if(map.get("username") == null) throw new AppValidationException("The username is required");
         String username = map.get("username").toString();
         AppUser user = repo.findByUsername(username).orElse(new AppUser());
+        if(creating && user.getId() != null)
+            throw new ResourceExistsException("Another user with the same username already exists in the database");
         if (map.get("password") != null) {
             user.setPassword(passwordEncoder.encode(map.get("password").toString()));
             map.remove("password");
         }
-        /*if (map.get("email") != null) {
-            user.setEmail(map.get("email").toString());
-        }*/
         try {
             objectMapper.readerForUpdating(user).readValue(objectMapper.writeValueAsString(map));
         } catch (JsonProcessingException e) {
-            /*log.log(Level.SEVERE, e.getMessage(), e);
-            throw new AppException("Unexpected error");*/
+            throw new RuntimeException(e);
         }
         return createOrUpdate(user);
     }

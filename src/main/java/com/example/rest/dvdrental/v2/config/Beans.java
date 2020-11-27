@@ -39,8 +39,8 @@ public class Beans {
     @Bean
     public OpenAPI publicApi(@Value("${app.baseUrl}") String baseUrl) {
         return new OpenAPI().info(apiDetails())
-                .addServersItem(new Server().url("https://limitless-temple-47840.herokuapp.com").description("Heroku Test Server"))
-                .addServersItem(new Server().url(baseUrl).description("Local Server"));
+//                .addServersItem(new Server().url("https://limitless-temple-47840.herokuapp.com").description("Heroku Test Server"))
+                .addServersItem(new Server().url("http://localhost:8080").description("Local Server"));
     }
     
     
