@@ -4,7 +4,7 @@ server:
 
 app:
     initdata: true
-    baseUrl: http://localhost
+    baseUrl: http://localhost:8080
 
 
 spring:
@@ -51,10 +51,6 @@ spring:
 jwt:
     timeout: 60
     secret: ${JWT_SECRET_KEY}
-    keystore-location: keys/keystore.jks
-    keystore-password: 123456
-    key-alias: jwtsigning
-    private-key-passphrase: ${jwt.keystore-password}
 
 
 

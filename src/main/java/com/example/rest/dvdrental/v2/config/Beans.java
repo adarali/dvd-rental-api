@@ -53,7 +53,7 @@ public class Beans {
         
         info.setContact(contact);
         info.setTitle("DVD Rental API");
-        info.setDescription("This is a DVD Rental API. To make requests that require authentication with the API, you need to provide a JWT Token in the headers under the key name \"jwt\" which you obtain after being authenticated.");
+        info.setDescription("This is a DVD Rental API.");
         info.setVersion("1.0.0");
         info.setLicense(new License());
         return info;

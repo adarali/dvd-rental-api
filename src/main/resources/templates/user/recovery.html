@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Reset</title>
+</head>
+<body>
+
+    <form th:action="@{__${#httpServletRequest.requestURI}__}" th:object="${recovery}" method="post">
+        <h3>Password Reset</h3>
+        <table>
+            <tr>
+                <td><label for="password">New password</label></td>
+                <td><input type="password" id="password" th:field="*{password}"></td>
+            </tr>
+            <tr>
+                <td><label for="confirmPassword">Confirm password</label></td>
+                <td><input type="password" id="confirmPassword" th:field="*{confirmPassword}"></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Reset</button></td>
+            </tr>
+        </table>
+        <span style="color: red;" th:text="${message}"></span>
+    </form>
+</body>
+</html>

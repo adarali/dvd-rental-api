@@ -3,6 +3,7 @@ package com.example.rest.dvdrental.v2.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -19,8 +20,10 @@ public class RentLogRequest {
     @Schema(description = "Filter by users whose full name contains this value", example = "Michael Jackson")
     private String userFullName;
     @Schema(description = "The initial date of the date range to filter by rent date", required = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
     @Schema(description = "The final date of the date range to filter by rent date", required = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
     @Schema(description = "If the rent is returned or not. You can omit this filter")
     private Boolean returned;

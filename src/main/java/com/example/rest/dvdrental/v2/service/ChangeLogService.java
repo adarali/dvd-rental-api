@@ -38,8 +38,8 @@ public class ChangeLogService extends AbstractService<ChangeLog, Long> {
         
         return getRepo().queryLogs(
                 request.getMovieId(),
-                request.getDateFrom(),
-                request.getDateTo(),
+                request.getDateFrom().atStartOfDay(),
+                request.getDateTo().atStartOfDay().plusDays(1),
                 changeType).stream().map(cl -> new ChangeLogResponse(cl))
                 .collect(Collectors.toList());
     }

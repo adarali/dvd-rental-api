@@ -5,6 +5,7 @@ import com.example.rest.dvdrental.v2.entities.Movie;
 import com.example.rest.dvdrental.v2.entities.Rent;
 import com.example.rest.dvdrental.v2.exceptions.AppException;
 import com.example.rest.dvdrental.v2.exceptions.AppValidationException;
+import com.example.rest.dvdrental.v2.exceptions.ResourceNotFoundException;
 import com.example.rest.dvdrental.v2.model.RentLogRequest;
 import com.example.rest.dvdrental.v2.model.RentLogResponse;
 import com.example.rest.dvdrental.v2.model.RentRequest;
@@ -69,15 +70,16 @@ public class RentService extends AbstractService<Rent, Long> {
     public Rent getRent(Long id) {
         Rent rent = find(id);
         if (rent == null) {
-            throw new AppException("The rent does not exist");
+            throw new ResourceNotFoundException("The rent does not exist");
         }
         return rent;
     }
     
     @Transactional
-    public void returnRent(Long id) {
+    public RentLogResponse returnRent(Long id) {
         Rent rent = getRent(id);
         rent.returnMovie();
+        return new RentLogResponse(rent);
     }
     
     public List<RentLogResponse> getRentLogs(RentLogRequest request) {

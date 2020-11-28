@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -102,8 +103,8 @@ public class MovieController {
     @ApiResponse(responseCode = "204", description = "If the update was successful")
     @PutMapping("{id}")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<MovieDetails> update(@Parameter(description = "The ID of the movie.") @PathVariable("id") Long id, @RequestBody Movie movie) {
-        movie.setId(id);
+    public ResponseEntity<MovieDetails> update(@Parameter(description = "The ID of the movie.") @PathVariable("id") Long id, @RequestBody Map<String, Object> movie) {
+        movie.put("id", id);
         MovieDetails details = MovieDetails.from(movieService.update(movie));
         return ResponseEntity.ok().body(details);
     }
@@ -113,6 +114,7 @@ public class MovieController {
     @DeleteMapping("{id}")
     @Secured("ROLE_ADMIN")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        movieService.getMovie(id);
         movieService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -148,5 +150,12 @@ public class MovieController {
     public ResponseEntity<?> purchase(@RequestBody PurchaseRequest request, Principal principal) {
         purchaseService.purchase(request, principal.getName());
         return ResponseEntity.ok("Purchase completed successfully");
+    }
+    
+    @Operation(summary = "Return a rented movie (Requires admin privileges)", parameters = @Parameter(in = ParameterIn.QUERY, name = "id", description = "The id of the rent of the movie"))
+    @ApiResponse(responseCode = "200")
+    @PatchMapping("{id}/rents/{rentId}/return")
+    public RentLogResponse returnRent(@PathVariable("rentId") Long rentId) {
+        return rentService.returnRent(rentId);
     }
 }

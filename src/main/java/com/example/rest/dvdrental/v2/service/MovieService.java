@@ -94,7 +94,7 @@ public class MovieService extends AbstractService<Movie, Long> {
         if (map.get("id") == null) {
             throw new AppException("You must specify the id of the movie you want to modify");
         }
-        Long id = ((Integer) map.get("id")).longValue();
+        Long id = (Long) map.get("id");
         try {
             Movie movie = getMovie(id);
             createChangeLog(map, movie);
@@ -123,6 +123,7 @@ public class MovieService extends AbstractService<Movie, Long> {
                 }
                 map.remove("movieImages");
             }
+            movie.getMovieImages().size();
             em.detach(movie);
             objectMapper.readerForUpdating(movie).readValue(objectMapper.writeValueAsString(map));
             validate(movie);
@@ -155,11 +156,11 @@ public class MovieService extends AbstractService<Movie, Long> {
             throw new ResourceExistsException("Another movie with the same title exists in the database");
         }
     
-        if (entity.getRentalPrice().compareTo(new BigDecimal("0.01")) < 0) {
+        if (entity.getRentalPrice() != null && entity.getRentalPrice().compareTo(new BigDecimal("0.01")) < 0) {
             validationMessageList.add(new ValidationMessage("rentalPrice", "The rental price must be at least 0.01"));
         }
         
-        if (entity.getSalePrice().compareTo(new BigDecimal("0.01")) < 0) {
+        if (entity.getSalePrice() != null && entity.getSalePrice().compareTo(new BigDecimal("0.01")) < 0) {
             validationMessageList.add(new ValidationMessage("salePrice", "The sale price must be at least 0.01"));
         }
         

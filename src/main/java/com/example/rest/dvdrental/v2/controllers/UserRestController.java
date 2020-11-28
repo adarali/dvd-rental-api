@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -89,9 +90,9 @@ public class UserRestController {
     @ApiResponse(responseCode = "200")
     @DeleteMapping("{username}")
     @Secured("ROLE_ADMIN")
-    private ResponseEntity<?> delete(@PathVariable String username){
+    public ResponseEntity<?> deleteUser(@PathVariable String username){
         appUserService.deleteByUsername(username);
-        return ResponseEntity.ok(String.format("the user %s was deleted successfully", username));
+        return ResponseEntity.noContent().build();
     }
     
     @Operation(summary = "Send verification email (Requires admin privileges)"
@@ -110,10 +111,9 @@ public class UserRestController {
     @ApiResponse(responseCode = "200")
     @PatchMapping("{username}/role")
     @Secured("ROLE_ADMIN")
-    public ResponseEntity<?> changeRole(@RequestBody ChangeRoleRequest request, Principal principal) {
-        String username = request.getUsername();
+    public ResponseEntity<?> changeRole(@PathVariable("username") String username, @RequestBody ChangeRoleRequest request, Principal principal) {
         if (principal.getName().equals(username)) {
-            throw new AppException("You cannot change your own role");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("You cannot change your own role");
         }
         boolean admin = request.isAdmin();
         appUserService.changeRole(username, admin);

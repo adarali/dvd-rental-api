@@ -9,10 +9,10 @@ import com.example.rest.dvdrental.v2.exceptions.user.AppUserNotFoundException;
 import com.example.rest.dvdrental.v2.model.UserRequest;
 import com.example.rest.dvdrental.v2.repository.AppUserRepository;
 import com.example.rest.dvdrental.v2.utils.AppUtils;
+import com.example.rest.dvdrental.v2.utils.JwtUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.java.Log;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
@@ -30,13 +30,15 @@ public class AppUserService extends AbstractService<AppUser, Long> {
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
     private final ObjectMapper objectMapper;
+    private final JwtUtil jwtUtil;
     
-    public AppUserService(AppUserRepository repo, PasswordRecoveryTokenService passwordRecoveryTokenService, EmailService emailService, PasswordEncoder passwordEncoder, ObjectMapper objectMapper) {
+    public AppUserService(AppUserRepository repo, PasswordRecoveryTokenService passwordRecoveryTokenService, EmailService emailService, PasswordEncoder passwordEncoder, ObjectMapper objectMapper, JwtUtil jwtUtil) {
         this.repo = repo;
         this.passwordRecoveryTokenService = passwordRecoveryTokenService;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.objectMapper = objectMapper;
+        this.jwtUtil = jwtUtil;
     }
     
     @Override
@@ -85,10 +87,7 @@ public class AppUserService extends AbstractService<AppUser, Long> {
     
     @Transactional
     public void changeRole(String username, boolean admin) {
-        AppUser user = findByUsername(username);
-        if (user != null) {
-            user.setAdmin(admin);
-        }
+        findByUsername(username).setAdmin(admin);
     }
     
     /**
@@ -100,8 +99,13 @@ public class AppUserService extends AbstractService<AppUser, Long> {
         if (!user.isVerified()) {
             throw new AppException(String.format("The email has not been verified for the user %s", user.getUsername()));
         }
-        PasswordRecoveryToken token = passwordRecoveryTokenService.createToken(user);
-        emailService.sendRecoveryEmail(user, token.getToken());
+        String token = jwtUtil.generateToken(user, 120, jwtUtil.generateSecretKey(user.getPassword()));
+//        PasswordRecoveryToken token = passwordRecoveryTokenService.createToken(user);
+        emailService.sendRecoveryEmail(user, token);
+    }
+    
+    public void sendRecoveryEmail(String username) {
+        sendRecoveryEmail(findByUsername(username));
     }
     
     /**
