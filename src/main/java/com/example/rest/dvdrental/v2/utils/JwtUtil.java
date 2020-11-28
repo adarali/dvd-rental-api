@@ -139,6 +139,11 @@ public class JwtUtil {
         return new AppSecretKey(bytes, getPreferredAlgorithm(bytes));
     }
     
+    public AppSecretKey generatePasswordSecretKey(AppUser user) {
+        String s = StringUtils.join(user.getUsername(), user.getPassword());
+        return generateSecretKey(s);
+    }
+    
     private MacAlgorithm getPreferredAlgorithm(byte[] bytes) {
         
         if (bytes == null) {

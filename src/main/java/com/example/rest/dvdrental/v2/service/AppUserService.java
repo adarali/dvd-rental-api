@@ -99,8 +99,7 @@ public class AppUserService extends AbstractService<AppUser, Long> {
         if (!user.isVerified()) {
             throw new AppException(String.format("The email has not been verified for the user %s", user.getUsername()));
         }
-        String token = jwtUtil.generateToken(user, 120, jwtUtil.generateSecretKey(user.getPassword()));
-//        PasswordRecoveryToken token = passwordRecoveryTokenService.createToken(user);
+        String token = jwtUtil.generateToken(user, 120, jwtUtil.generatePasswordSecretKey(user));
         emailService.sendRecoveryEmail(user, token);
     }
     

@@ -87,7 +87,7 @@ public class UserController {
     ) {
         try {
             AppUser user = appUserService.findByUsername(username);
-            jwtUtil.validatePasswordToken(token, jwtUtil.getJwtDecoder(user.getPassword()));
+            jwtUtil.validatePasswordToken(token, jwtUtil.getJwtDecoder(jwtUtil.generatePasswordSecretKey(user)));
             if (request.getPassword() == null) {
                 throw new AppException("The password is required");
             }

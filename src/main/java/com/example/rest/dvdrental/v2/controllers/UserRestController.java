@@ -44,7 +44,7 @@ public class UserRestController {
     public ResponseEntity<?> sendRecoveryEmail(@PathVariable @Parameter(in = ParameterIn.PATH, description = "The username of the user") String username) {
         AppUser user = appUserService.findByUsername(username);
         appUserService.sendRecoveryEmail(user);
-        return ResponseEntity.ok(String.format("Recovery email was sent successfully to %s", user.getEmail()));
+        return ResponseEntity.ok(String.format("Recovery email has been sent successfully to %s", user.getEmail()));
     }
     
     @Operation(summary = "Creates a new user (Requires admin privileges)"
