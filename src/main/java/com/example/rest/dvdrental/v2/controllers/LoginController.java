@@ -1,6 +1,5 @@
 package com.example.rest.dvdrental.v2.controllers;
 
-import com.example.rest.dvdrental.v2.config.security.AppUserDetails;
 import com.example.rest.dvdrental.v2.config.security.AppUserDetailsService;
 import com.example.rest.dvdrental.v2.entities.AppUser;
 import com.example.rest.dvdrental.v2.exceptions.InvalidJwtTokenException;

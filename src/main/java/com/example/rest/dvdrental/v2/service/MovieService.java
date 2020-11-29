@@ -1,14 +1,12 @@
 package com.example.rest.dvdrental.v2.service;
 
-import com.example.rest.dvdrental.v2.exceptions.ResourceExistsException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.rest.dvdrental.v2.entities.AppUser;
 import com.example.rest.dvdrental.v2.entities.ChangeLog;
 import com.example.rest.dvdrental.v2.entities.Movie;
 import com.example.rest.dvdrental.v2.entities.MovieImage;
 import com.example.rest.dvdrental.v2.enums.ChangeType;
 import com.example.rest.dvdrental.v2.exceptions.AppException;
+import com.example.rest.dvdrental.v2.exceptions.ResourceExistsException;
 import com.example.rest.dvdrental.v2.exceptions.movie.MovieNotFoundException;
 import com.example.rest.dvdrental.v2.exceptions.movie.MovieUnavailableException;
 import com.example.rest.dvdrental.v2.model.LazyRequest;
@@ -18,7 +16,8 @@ import com.example.rest.dvdrental.v2.model.ValidationMessage;
 import com.example.rest.dvdrental.v2.model.movie.MovieDetails;
 import com.example.rest.dvdrental.v2.model.movie.MovieListItem;
 import com.example.rest.dvdrental.v2.repository.MovieRepository;
-import com.example.rest.dvdrental.v2.utils.AppUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.java.Log;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;

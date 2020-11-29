@@ -1,7 +1,7 @@
 package com.example.rest.dvdrental.v2.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.rest.dvdrental.v2.utils.AppUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Getter

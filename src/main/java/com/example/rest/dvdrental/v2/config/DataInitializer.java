@@ -1,10 +1,10 @@
 package com.example.rest.dvdrental.v2.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.rest.dvdrental.v2.entities.*;
 import com.example.rest.dvdrental.v2.enums.ChangeType;
 import com.example.rest.dvdrental.v2.service.*;
 import com.example.rest.dvdrental.v2.utils.AppUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

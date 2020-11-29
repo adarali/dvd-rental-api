@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;

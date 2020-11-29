@@ -1,16 +1,12 @@
 package com.example.rest.dvdrental.v2.model.movie;
 
 import com.example.rest.dvdrental.v2.model.LazyRequest;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.Min;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 @Getter @Setter
 @Schema(description = "The query string parameters (The parameters you type into the URL)")

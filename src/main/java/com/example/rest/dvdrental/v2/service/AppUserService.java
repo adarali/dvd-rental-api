@@ -1,7 +1,6 @@
 package com.example.rest.dvdrental.v2.service;
 
 import com.example.rest.dvdrental.v2.entities.AppUser;
-import com.example.rest.dvdrental.v2.entities.PasswordRecoveryToken;
 import com.example.rest.dvdrental.v2.exceptions.AppException;
 import com.example.rest.dvdrental.v2.exceptions.AppValidationException;
 import com.example.rest.dvdrental.v2.exceptions.ResourceExistsException;

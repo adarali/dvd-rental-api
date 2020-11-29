@@ -1,8 +1,8 @@
 package com.example.rest.dvdrental.v2.entities;
 
+import com.example.rest.dvdrental.v2.exceptions.StockException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.example.rest.dvdrental.v2.exceptions.StockException;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;

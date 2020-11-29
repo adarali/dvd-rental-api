@@ -8,7 +8,6 @@ import com.example.rest.dvdrental.v2.model.PurchaseLogRequest;
 import com.example.rest.dvdrental.v2.model.PurchaseLogResponse;
 import com.example.rest.dvdrental.v2.model.PurchaseRequest;
 import com.example.rest.dvdrental.v2.repository.PurchaseRepository;
-import com.example.rest.dvdrental.v2.utils.AppUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
