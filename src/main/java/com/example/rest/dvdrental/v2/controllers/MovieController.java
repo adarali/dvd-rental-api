@@ -155,6 +155,7 @@ public class MovieController {
     @Operation(summary = "Return a rented movie (Requires admin privileges)", parameters = @Parameter(in = ParameterIn.QUERY, name = "id", description = "The id of the rent of the movie"))
     @ApiResponse(responseCode = "200")
     @PatchMapping("{id}/rents/{rentId}/return")
+    @Secured("ROLE_ADMIN")
     public RentLogResponse returnRent(@PathVariable("rentId") Long rentId) {
         return rentService.returnRent(rentId);
     }

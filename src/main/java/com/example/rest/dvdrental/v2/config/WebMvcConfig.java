@@ -9,6 +9,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/api-docs", "/swagger/index.html");
+        String redirectUrl = "/app/";
+        registry.addViewController("/app/").setViewName("forward:/app/index.html");
+        registry.addRedirectViewController("/", redirectUrl);
+        registry.addRedirectViewController("/app", redirectUrl);
+//        registry.addRedirectViewController("/app/**", redirectUrl);
     }
 }

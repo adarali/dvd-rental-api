@@ -67,6 +67,7 @@ public class DataInitializer {
         log.info("Adding test data");
         addUsers();
         addMovies();
+//        addChangeLogs();
 //        addRents();
 //        addPurchases();
         log.info("Data added successfully");

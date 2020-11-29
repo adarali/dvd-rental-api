@@ -27,8 +27,7 @@ spring:
                     starttls:
                         enable: true
         username: springboottestemail001@gmail.com
-    swagger-ui:
-        path: /api-docs
+
     security:
         oauth2:
             client:
@@ -92,4 +91,6 @@ bucket4j:
                       time: 1
                       unit: hours
 
-
+springdoc:
+    swagger-ui:
+        path: /api-docs
