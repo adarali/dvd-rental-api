@@ -1,0 +1,13 @@
+app:
+    baseUrl: https://limitless-temple-47840.herokuapp.com
+    initdata: true
+server:
+    port: ${PORT}
+spring:
+    datasource:
+        password: ${JDBC_DATABASE_PASSWORD}
+        url: ${JDBC_DATABASE_URL}
+        username: ${JDBC_DATABASE_USERNAME}
+    jpa:
+        hibernate:
+            ddl-auto: create-drop

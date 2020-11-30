@@ -1,0 +1,1 @@
+web: java -jar target/dvd-rental.jar --spring.profiles.active=heroku
