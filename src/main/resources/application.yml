@@ -79,7 +79,7 @@ bucket4j:
                     - capacity: 10
                       time: 1
                       unit: minutes
-              - expression: "getHeader('Authorization')"
+              - expression: "getRemoteAddr()"
                 execute-condition: "getHeader('Authorization') == null"
                 bandwidths:
                     - capacity: 40
