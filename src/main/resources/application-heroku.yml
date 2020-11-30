@@ -1,5 +1,5 @@
 app:
-    baseUrl: https://limitless-temple-47840.herokuapp.com
+    baseUrl: https://obscure-scrubland-04569.herokuapp.com
     initdata: true
 server:
     port: ${PORT}
@@ -11,3 +11,4 @@ spring:
     jpa:
         hibernate:
             ddl-auto: create-drop
+
