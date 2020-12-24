@@ -60,7 +60,8 @@ public class AppUtils {
                 "/v3/api-docs/**",
                 "/swagger-ui/**",
                 "/swagger-ui.html",
-                "/error"
+                "/error",
+                "/react/**"
         );
     }
     

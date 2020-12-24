@@ -138,7 +138,8 @@ public class MovieController {
     @Operation(summary = "Rent a movie (Requires authentication)")
     @ApiResponse(responseCode = "200")
     @PostMapping("{id}/rents")
-    public ResponseEntity<?> rent(@RequestBody RentRequest rentRequest, Principal principal) {
+    public ResponseEntity<?> rent(@PathVariable Long id, @RequestBody RentRequest rentRequest, Principal principal) {
+        rentRequest.setMovieId(id);
         rentService.rent(rentRequest, principal.getName());
         return ResponseEntity.ok("Action completed successfully");
     }
@@ -146,7 +147,8 @@ public class MovieController {
     @Operation(summary = "Purchase a movie (Requires authentication)", description = "This operation is to purchase a movie by providing the ID of the movie and the quantity to purchase")
     @ApiResponse(responseCode = "200")
     @PostMapping("{id}/purchases")
-    public ResponseEntity<?> purchase(@RequestBody PurchaseRequest request, Principal principal) {
+    public ResponseEntity<?> purchase(@PathVariable Long id, @RequestBody PurchaseRequest request, Principal principal) {
+        request.setMovieId(id);
         purchaseService.purchase(request, principal.getName());
         return ResponseEntity.ok("Purchase completed successfully");
     }

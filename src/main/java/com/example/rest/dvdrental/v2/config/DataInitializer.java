@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -79,15 +80,18 @@ public class DataInitializer {
     
         ObjectMapper mapper = new ObjectMapper();
         try {
-            URL url = getClass().getClassLoader().getResource("movies200.json");
+            URL url = getClass().getClassLoader().getResource("movies200_2.json");
             MovieListWrapper wrapper = mapper.readValue(url, MovieListWrapper.class);
             List<Movie> movieList = wrapper.getMovies();
             for (Movie movie : movieList) {
                 if("null".equals(movie.getTitle())) continue;
+                if(StringUtils.isBlank((movie.getDescription()))) {
+                    movie.setDescription(movie.getTitle());
+                }
                 movie.setStock(BigDecimal.valueOf(100));
                 movie.setRentalPrice(AppUtils.getRandomBigDecimal(1, 101));
                 movie.setSalePrice(movie.getRentalPrice().multiply(BigDecimal.valueOf(5)));
-                Collections.reverse(movie.getMovieImages());
+//                Collections.reverse(movie.getMovieImages());
                 movieService.create(movie);
             }
             log.info("Movies added successfully");

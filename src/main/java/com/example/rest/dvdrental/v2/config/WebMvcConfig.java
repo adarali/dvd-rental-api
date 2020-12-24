@@ -11,8 +11,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         String redirectUrl = "/app/";
         registry.addViewController("/app/").setViewName("forward:/app/index.html");
+        registry.addViewController("/react/").setViewName("forward:/react/index.html");
         registry.addRedirectViewController("/", redirectUrl);
         registry.addRedirectViewController("/app", redirectUrl);
+        registry.addRedirectViewController("/react", "/react/");
 //        registry.addRedirectViewController("/app/**", redirectUrl);
     }
 }
